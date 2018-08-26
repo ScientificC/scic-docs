@@ -4,23 +4,12 @@
    single: C extensions, compatible use of
    single: compatibility
 
-*****************
-Using the Library
-*****************
+*******************
+Using the Libraries
+*******************
 
-This chapter describes how to compile programs that use SCIC, and
+This chapter describes how to compile programs that use SCIC libraries, and
 introduces its conventions.
-
-An Example Program
-==================
-
-The following short program demonstrates the use of the library
-
-.. include:: examples/intro.c
-   :code:
-
-The steps needed to compile this program are described
-in the following sections.
 
 .. index::
    single: compiling programs, include paths
@@ -34,16 +23,14 @@ The library header files are installed in their own :file:`scic`
 directory.  You should write any preprocessor include statements with a
 :file:`scic/` directory prefix thus::
 
-    #include <scic/math.h>
+    #include <scic/errno.h>
 
-or simply requiring all the modules in the following way::
-
-    #include <scic.h>
 
 If the directory is not installed on the standard search path of your
 compiler you will also need to provide its location to the preprocessor
-as a command line flag.  The default location of the main header file
-:file:`scic.h` and the :file:`scic` directory is :file:`/usr/local/include`.
+as a command line flag.  The default location of the :file:`scic`
+directory is :file:`/usr/local/include`.
+
 A typical compilation command for a source file :file:`example.c` with
 the GNU C compiler :code:`gcc` is::
 
@@ -62,15 +49,15 @@ in its default location.
 Linking programs with the library
 ---------------------------------
 
-The library is installed as a single file, :file:`libscic.a`.  A shared
-version of the library :file:`libscic.so` is also installed on systems
+The library is installed as a single file, e.g. :file:`liberrno.a` for the :file:`scic/errno` library.  A shared
+version of the library :file:`liberrno.so` is also installed on systems
 that support shared libraries.  The default location of these files is
 :file:`/usr/local/lib`.  If this directory is not on the standard search
 path of your linker you will also need to provide its location as a
 command line flag. The following example shows how to link an application
 with the library::
 
-    $ gcc -L/usr/local/lib example.o -lscic
+    $ gcc -L/usr/local/lib example.o -lerrno
 
 The default library path for :code:`gcc` searches :file:`/usr/local/lib`
 automatically so the :code:`-L` option can be omitted when SCIC is
@@ -89,7 +76,7 @@ will occur::
 
     $ ./a.out
     ./a.out: error while loading shared libraries:
-    libscic.so.0: cannot open shared object file: No such file or directory
+    liberrno.so.0: cannot open shared object file: No such file or directory
 
 To avoid this error, either modify the system dynamic linker
 configuration [#f2]_ or
@@ -117,7 +104,7 @@ individual or system-wide login file.
 To compile a statically linked version of the program, use the
 :code:`-static` flag in :code:`gcc`::
 
-    $ gcc -static example.o -lscic
+    $ gcc -static example.o -lerrno
 
 ANSI C Compliance
 =================
