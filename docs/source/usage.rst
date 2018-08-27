@@ -49,15 +49,15 @@ in its default location.
 Linking programs with the library
 ---------------------------------
 
-The library is installed as a single file, e.g. :file:`liberrno.a` for the :file:`scic/errno` library.  A shared
-version of the library :file:`liberrno.so` is also installed on systems
+The library is installed as a single file, e.g. :file:`libscicerrno.a` for the :file:`scic/errno` library.  A shared
+version of the library :file:`libscicerrno.so` is also installed on systems
 that support shared libraries.  The default location of these files is
 :file:`/usr/local/lib`.  If this directory is not on the standard search
 path of your linker you will also need to provide its location as a
 command line flag. The following example shows how to link an application
 with the library::
 
-    $ gcc -L/usr/local/lib example.o -lerrno
+    $ gcc -L/usr/local/lib example.o -lscicerrno
 
 The default library path for :code:`gcc` searches :file:`/usr/local/lib`
 automatically so the :code:`-L` option can be omitted when SCIC is
@@ -76,7 +76,7 @@ will occur::
 
     $ ./a.out
     ./a.out: error while loading shared libraries:
-    liberrno.so.0: cannot open shared object file: No such file or directory
+    libscicerrno.so.0: cannot open shared object file: No such file or directory
 
 To avoid this error, either modify the system dynamic linker
 configuration [#f2]_ or
@@ -104,7 +104,7 @@ individual or system-wide login file.
 To compile a statically linked version of the program, use the
 :code:`-static` flag in :code:`gcc`::
 
-    $ gcc -static example.o -lerrno
+    $ gcc -static example.o -lscicerrno
 
 ANSI C Compliance
 =================
